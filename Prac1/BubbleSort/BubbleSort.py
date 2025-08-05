@@ -15,16 +15,24 @@ import numpy as np
 
 def bubble_sort(array):
     n = len(array)
+    print('The original array is:\t', array)
+    
     if n <= 1:
         return array # If the array is 1, it is already sorted.
-    for i in range(n-1):
-        q = n-i-1
-        j = n-1
+    else: 
+        for i in range(n):
+            k = n-i
+            for  i in range(k-1):
+                j = i+1
+                if array[i] > array[j] and i < k:
+                    array[i], array[j] = array[j], array[i]
+                    print('elements swapped:', array[i], array[j])
+                    print('\n', array)
+                elif array[i] == array[j]:
+                    print("Element ", array[i], "and ", array[j], "not swapped. ")
+        print("\nThe sorted array is:\t", array, '\n')
 
-        print("q is:", q)
-        print("j is:", j)
-        print()
-        
+
 
   # make n-1 comparisons
   # for each element in an array:
