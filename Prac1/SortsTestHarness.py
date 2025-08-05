@@ -109,3 +109,5 @@ else:
              runningTotal += (endTime - startTime)
     
         print(sortType + arrayType + " " + str(n) + " " + str(runningTotal/(REPEATS - 1)))
+
+doSort(10, 's', 'a')  # Example call to test sorting function

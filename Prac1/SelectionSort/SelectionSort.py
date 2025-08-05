@@ -10,25 +10,23 @@ Appendices:
 """
 import numpy as np
 
-# Selection sort with a temporary array
+test_numbers = np.array([5, -2, 0, 1, 5, 6])
 
-test_numbers = np.array([5, 2, 9, 1, 5, 6])
+def selection_sort(array):
+    n = len(array)
 
-smallest_num = test_numbers[0]
-sorted_array = test_numbers
+    for i in range(n):
+        #who gets to be index 0, then 1, then 2 and so forth progressively
+        min_idx = i
+        #finds smallest number in the array
+        for j in range(i+1, n):
+            if array[j] < array[min_idx]:
+                min_idx = j
+        #swap
+        temp = array[min_idx]
+        array[min_idx] = array[i]
+        array[i] = temp
+    #return sorted array
+    return array
 
-for i in range(1, len(test_numbers)):
-    print(i-1)
-#finds smallest number in the array
-    for num in test_numbers:
-        if num < smallest_num:
-            smallest_num = num
-    np.delete(test_numbers, i-1)
-    sorted_array[i-1] = smallest_num
-    print("Smallest number in the array is:", smallest_num, test_numbers[i-1])
-    
-    print("Sorted array so far:", sorted_array)
-    
-    #places value at the "start"
-    
-    
+print("Sorted Array: ", selection_sort(test_numbers))
