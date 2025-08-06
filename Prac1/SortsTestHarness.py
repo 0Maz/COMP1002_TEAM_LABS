@@ -87,7 +87,7 @@ def doSort(n, sortType, arrayType):
         for i in range(n-2):
             if (A[i] > A[i+1]):
                 raise ValueError("Array not in order")
-        print('Sorted Array:\t', A)
+        print('\nSorted Array:\t', A)
 
 #main program
 
@@ -105,7 +105,10 @@ else:
         for repeat in range(REPEATS):
              startTime = timeit.default_timer()
              doSort(n, sortType, arrayType)
-             print()
              endTime = timeit.default_timer()
-
+             print('Running time (', repeat + 1, ') = \t', endTime - startTime)
              runningTotal += (endTime - startTime)
+
+        print('\nTotal Time = ', runningTotal, 'for ', repeat + 1, 'REPEATS. ')
+        print('Average Time = ', runningTotal/REPEATS)
+        print()
