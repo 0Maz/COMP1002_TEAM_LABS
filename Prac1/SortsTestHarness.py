@@ -42,7 +42,7 @@ def usage():
     print("           n - 1..n nearly sorted (10% moved)")
 
 def doSort(n, sortType, arrayType):
-        A = np.arange(1, n+1, 1)   #create array with values from 1 to n
+        A = np.arange(1, n+1, 1)   # create array with values from 1 to n
         
         if arrayType == 'a':
             ...
@@ -59,7 +59,7 @@ def doSort(n, sortType, arrayType):
                 temp = A[x]
                 A[x] = A[y]
                 A[y] = temp
-            print("Random: ", A)
+            print("\nRandom Array: \t", A)
         elif arrayType == 'n':
             for i in range(int(n*NEARLY_PERCENT/2+1)):
                 x = int(random.random()*n)
@@ -87,6 +87,7 @@ def doSort(n, sortType, arrayType):
         for i in range(n-2):
             if (A[i] > A[i+1]):
                 raise ValueError("Array not in order")
+        print('Sorted Array:\t', A)
 
 #main program
 
@@ -104,8 +105,10 @@ else:
         for repeat in range(REPEATS):
              startTime = timeit.default_timer()
              doSort(n, sortType, arrayType)
+             print()
              endTime = timeit.default_timer()
 
              runningTotal += (endTime - startTime)
     
-        print(sortType + arrayType + " " + str(n) + " " + str(runningTotal/(REPEATS - 1)))
+        print('\n', sortType + arrayType + " " + str(n) + " " + str(runningTotal/(REPEATS - 1)))
+
