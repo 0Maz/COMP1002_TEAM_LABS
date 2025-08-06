@@ -21,7 +21,7 @@ import DSAsorts
 import random
 
 
-REPEATS = 3           #No times to run sorts to get mean time
+REPEATS = 4           #No times to run sorts to get mean time
 NEARLY_PERCENT = 0.10 #% of items to move in nearly sorted array
 RANDOM_TIMES = 100    #No times to randomly swap elements in array
 
@@ -109,12 +109,3 @@ else:
              endTime = timeit.default_timer()
 
              runningTotal += (endTime - startTime)
-    
-<<<<<<< HEAD
-        print(sortType + arrayType + " " + str(n) + " " + str(runningTotal/(REPEATS - 1)))
-
-doSort(10, 's', 'a')  # Example call to test sorting function
-=======
-        print('\n', sortType + arrayType + " " + str(n) + " " + str(runningTotal/(REPEATS - 1)))
-
->>>>>>> 9d78ba9ce5354e932d05467fd41e016cc9ad55c0

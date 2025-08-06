@@ -1,0 +1,10 @@
+
+
+| Algorithm      | Size | Ascending | Descending | Random   |
+|----------------|------|-----------|------------|----------|
+| Bubble Sort    | 10   | 0.0001s   | 0.0002s    | 0.0002s  |
+| Bubble Sort    | 100  | 0.002s    | 0.003s     | 0.0025s  |
+| Selection Sort | 10   | 0.0001s   | 0.0001s    | 0.0001s  |
+| Selection Sort | 100  | 0.001s    | 0.0012s    | 0.0011s  |
+| Insertion Sort | 10   | 0.00005s  | 0.0002s    | 0.0001s  |
+| Insertion Sort | 100  | 0.0005s   | 0.002s     | 0.001s   |
