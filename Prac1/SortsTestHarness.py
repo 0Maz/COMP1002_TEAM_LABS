@@ -14,6 +14,7 @@
 #** Modified (python): Hayden Richards
 #** Date:    March 2018
 
+
 import numpy as np
 import sys
 import timeit
@@ -93,7 +94,7 @@ def doSort(n, sortType, arrayType):
 
 if len(sys.argv) < 3:
     usage()
-else:
+else:    
     for aa in range(2, len(sys.argv)):
         
         n = int(sys.argv[1])
@@ -103,11 +104,11 @@ else:
         runningTotal = 0
 
         for repeat in range(REPEATS):
-             startTime = timeit.default_timer()
-             doSort(n, sortType, arrayType)
-             endTime = timeit.default_timer()
-             print('Running time (', repeat + 1, ') = \t', endTime - startTime)
-             runningTotal += (endTime - startTime)
+            startTime = timeit.default_timer()
+            doSort(n, sortType, arrayType)
+            endTime = timeit.default_timer()
+            print('Running time (', repeat + 1, ') = \t', endTime - startTime)
+            runningTotal += (endTime - startTime)
 
         print('\nTotal Time = ', runningTotal, 'for ', repeat + 1, 'REPEATS. ')
         print('Average Time = ', runningTotal/REPEATS)
