@@ -1,5 +1,5 @@
 # FACTORIAL AND FIBONACCI: 
-#   Given the code in the lecture slides, implement the iterative and recursive
+#   Given the code in the lecture slides, implement the iterative and recursive.
 #   functions for Factorial and Fibonacci;
 #
 # Author:   Luke Riedel (22224109)
@@ -8,6 +8,8 @@
 # Assumptions: 
 #   - I have to make two function each? An iterative and recursive for both Fac.
 #     and Fib.?
+# 
+# Res. Curtin University, COMP1002, Lecture 2: Recursions and Exceptions (pg. 30 - 47).
 
 class LessThanZeroError(Exception):
     """Exception raised for numbers that are less than zero."""
@@ -55,7 +57,7 @@ def main():
     try: 
         # REPLACE THIS TO WHATEVER NUMBER YOU LIKE FOR A FACTORIAL RETURN
         
-        n = -1.5
+        n = 5
 
         if type(n) != int:
             raise TypeError
