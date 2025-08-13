@@ -3,6 +3,8 @@
 #
 # Author:   Luke Riedel (22224109)
 # Date:     11/08/2025
+#
+# Ref.      https://www2.cs.arizona.edu/~mercer/Presentations/17B-RecursiveNumberConversion.pdf
 
 def convert_base(n,base):
     n = int(n)
