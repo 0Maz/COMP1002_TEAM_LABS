@@ -55,7 +55,7 @@ def main():
     try: 
         # REPLACE THIS TO WHATEVER NUMBER YOU LIKE FOR A FACTORIAL RETURN
         
-        n = 6
+        n = -1.5
 
         if type(n) != int:
             raise TypeError
