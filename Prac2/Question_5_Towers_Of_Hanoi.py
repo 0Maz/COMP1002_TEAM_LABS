@@ -23,7 +23,7 @@ def towers(n, src, dest, count=0):
         move_disk(n, src, dest)
         return count + 1
     else:
-        other = 6 - src - dest                        # Calculate the auxiliary/other/"middle" peg
+        other = 6 - (src + dest)                        # Calculate the auxiliary/other/"middle" peg
         towers(n - 1, src, other)                     # move all the disks except the last one (n-1)(bottom) to the "other"(not destination) peg.        
         move_disk(n, src, dest)                        # move the remaining (bottom) disk to the destination peg
         count += 1

@@ -39,13 +39,11 @@ def selectionSort(A):
     for i in range(n):
         min_idx = i
         #finds smallest number in the array
-        for j in range(i+1, n):
-            if A[j] < A[min_idx]:
+        for j in range(i+1, n): # check all the numbers after the current spot to find if there is a smaller one
+            if A[j] < A[min_idx]: 
                 min_idx = j
         #swap
-        temp = A[min_idx]
-        A[min_idx] = A[i]
-        A[i] = temp
+        A[min_idx], A[i] = A[i], A[min_idx]
     #return sorted array
     return A
 
