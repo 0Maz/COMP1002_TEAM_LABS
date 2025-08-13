@@ -1,32 +1,46 @@
 # NUMBER CONVERSIONS:
-#   Make a recurive algorithm for making decimals (base 10), to a number in base 2. 
+#   Make a recursive algorithm for converting decimals to other bases.
 #
 # Author:   Luke Riedel (22224109)
 # Date:     11/08/2025
+#
+# Ref.      https://www2.cs.arizona.edu/~mercer/Presentations/17B-RecursiveNumberConversion.pdf
 
-
-# How converting to base 2 works:
-#   - Repeatedly divide by 2, and note the remainders. 
-#   - if 0, we mark 0, if 1, we mark 1. 
-#   - We continue until the qotient becomes 0. 
-
-# I will try to create my own algorithm. I am thinking of converting to strings 
-
-def convertbase(n,base):
+def convert_base(n,base):
     n = int(n)
     base = int(base)
-    if n == 0: 
-        return n
-    elif n == 1:
-        return n
+    if n < base:
+        return str(n)
     else:
-        return str(convertbase((n/base), base)) + str(n % base)
+        return str(convert_base((n//base), base)) + str(n % base)
 
-    
+
+class BoundError(Exception):
+    """Raised when a number is out of bounds of a specified region."""
+    pass
+
+
 def main():
-    n = 10
-    base = 2
-    print('\nResult = ', convertbase(n, base), '\n') 
+    try:
+        #  Replace 'n' and 'base' here...  
+        n = 123456789
+        base = 2
+
+        if base < 2 or base > 16 or n < 0:
+            raise BoundError()
+        print(f"\nResult = {convert_base(n, base)}\n")
+            
+    except (NameError, UnboundLocalError):
+        print(
+            "\nError: Variable 'n' or 'base' is a string, not an integer"
+            " or float.\n"
+            )
+    except BoundError:
+        print(
+            f"\n'n' or 'base' out of bounds:\n"
+            f"\t - 'n' must be 0 or greater.\t\t Currently: {n}\n" 
+            f"\t - 'base' must be from 2 to 16.\t\t Currently: {base}\n"
+            )
 
 
 if __name__ == "__main__":
