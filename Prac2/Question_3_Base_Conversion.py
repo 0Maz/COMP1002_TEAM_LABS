@@ -23,8 +23,8 @@ class BoundError(Exception):
 def main():
     try:
         #  Replace 'n' and 'base' here...  
-        n = 123456789
-        base = 2
+        n = 26
+        base = 16
 
         if base < 2 or base > 16 or n < 0:
             raise BoundError()
