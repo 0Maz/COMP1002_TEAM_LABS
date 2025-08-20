@@ -84,20 +84,20 @@ def main():
 
     # mostly just me testing in this section: 
     
-    # my_stack = np.array([])
-    # stack = DSAStack(my_stack)      # creating an instance of the class
+     my_stack = np.array([])
+     stack = DSAStack(my_stack)      # creating an instance of the class
 
-    # print(stack.count())
-    # stack.push(10)
-    # stack.push(20)
-    # stack.push(30)
+     print(stack.count())
+     stack.push(10)
+     stack.push(20)
+     stack.push(30)
 
-    # print(stack.array)
-    # print(stack.top())
-    # print(stack.count())
-    # print(stack.pop())
-    # print(stack.array)
-    return
+     print(stack.array)
+     print(stack.top())
+     print(stack.count())
+     print(stack.pop())
+     print(stack.array)
+    #return
     
 if __name__ == "__main__":
     main()
