@@ -7,9 +7,6 @@
 # Author:   Luke Riedel (22224109)
 # Date:     17/08/2025
 #
-# Synopsis: 
-#   - Question_1.py hosts classes and methods used in future questions.
-# 
 # Notes: 
 #   - Remember that the end of an array is considered the top of a stack.
 
