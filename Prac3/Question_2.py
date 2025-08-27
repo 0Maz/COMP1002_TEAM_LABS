@@ -10,32 +10,32 @@
 import numpy as np
 from Question_1 import DSAQueue
 
-#creates an empty queue of a given capacity
-# How do I make it so that is can take a given array as well?
+
 class DSACircularQueue(DSAQueue):
+    """Circular queue implementation using numpy array."""
+
     def __init__(self, capacity):
+        """Initializes an empty queue of a given capacity."""
         self.capacity = capacity #maximum amount of elements in the queue
         self.queue = np.empty(capacity, dtype=object)  # Initialize an empty array of given capacity
         self.size = 0 #current number of elements in the queue
-        self.front = 0 
+        self.front = 0 #index of the front element in the queue
         
     def enqueue(self, element):
         """ Add an element to the back of the queue """
         if (self.size == self.capacity):
-            print("queue is full") 
-            ## RAISE AN EXCEPTION HERE LATER
-        else: 
-            rear = (self.front+self.size) % self.capacity #calculates rear postion
-            self.queue[rear] = element #adds an element at the next spot at the end of the queue
+            print("queue is full")
+        else:
+            rear = (self.front + self.size) % self.capacity  # calculates rear position
+            self.queue[rear] = element  # adds an element at the next spot at the end of the queue
             self.size += 1
 
     def dequeue(self):
         """ Takes an element from the fromt of the queue """
         if(self.size == 0):
             print("queue is empty")          
-            ## Raise an exception here 
         else:
-            current_front = self.queue[self.front] #tmp value to return
+            current_front = self.queue[self.front] #tmp value to return/pop
             self.front = (self.front + 1) % self.capacity #calculates next step for front to go
             self.size -= 1
             return current_front
@@ -44,7 +44,6 @@ class DSACircularQueue(DSAQueue):
         """ Returns the front element without removing it """
         if(self.size == 0):
             print("queue is empty")
-            ## Raise an exception here
         else:
             return self.queue[self.front]
         
@@ -60,6 +59,7 @@ class DSACircularQueue(DSAQueue):
         """ Returns the number of elements in the queue """
         return self.size
 
+
 def main():
     print("hello world")
     queue = DSACircularQueue(5)
@@ -71,6 +71,7 @@ def main():
     queue.dequeue()
     print("Front element after dequeue:", queue.peek())
     print("Queue size after dequeue:", queue.count())
+
 
 if __name__ == "__main__":
     main()
