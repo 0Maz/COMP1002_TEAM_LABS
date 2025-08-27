@@ -14,37 +14,46 @@ import numpy as np
 
 class DSAStack():       # uses LIFO (Last in First Out)
 
-    def __init__(self, array):
-        self.array = array 
-
+    def __init__(self, capacity = 100):
+        self.capacity = capacity
+        self.size = 0
+        self.array = np.empty(capacity, dtype=object) # empty stack
+    
     def push(self, element):
         """Add a new item to the top a stack. """
-        self.array = np.append(self.array, element)
-    
+        if self.size == self.capacity: #if full
+            print("stack is full")
+            return None 
+        self.array[self.size] = element
+        self.size += 1
+
     def pop(self):
         """ Take the top most item from a stack. """
         if self.isEmpty():
             return None
-        element = self.array[-1]        # grab the last element
-        self.array = self.array[:-1]   # everything but the last element
-        return element                  # returns the element we popped off 
-    
+        element = self.array[self.size - 1]
+        self.array[self.size - 1] = None        # grab the last element
+        self.size -= 1
+        return element  
+        
+
     def top(self):
         """Look at the top-most item, but leave it on the stack. """
         if self.isEmpty():
             return None
-        return self.array[-1]
+        return self.array[self.size - 1]
+    
     
     def isEmpty(self):
         """Check if an array is empty. """
-        if len(self.array) == 0:
+        if self.size == 0:
             return True
         else: 
             return False
-    
+        
     def count(self):
         """Returns the number of elements in the stack. """
-        return len(self.array)
+        return self.size
 
 
 class DSAQueue(DSAStack):       # Uses FIFO (First In First Out)
@@ -82,7 +91,7 @@ def main():
     # mostly just me testing in this section: 
     
      my_stack = np.array([])
-     stack = DSAStack(my_stack)      # creating an instance of the class
+     stack = DSAStack(10)      # creating an instance of the class
 
      print(stack.count())
      stack.push(10)
