@@ -23,7 +23,7 @@ class DSACircularQueue(DSAQueue):
         
     def enqueue(self, element):
         """ Add an element to the back of the queue """
-        if (self.size == self.capacity):
+        if self.isFull():
             print("queue is full")
         else:
             rear = (self.front + self.size) % self.capacity  # calculates rear position
@@ -32,17 +32,18 @@ class DSACircularQueue(DSAQueue):
 
     def dequeue(self):
         """ Takes an element from the fromt of the queue """
-        if(self.size == 0):
+        if self.isEmpty():
             print("queue is empty")          
         else:
             current_front = self.queue[self.front] #tmp value to return/pop
-            self.front = (self.front + 1) % self.capacity #calculates next step for front to go
+            self.queue[self.front] = None # "deletes" the front
+            self.front = (self.front + 1) % self.capacity #calculates next step for front to go       
             self.size -= 1
             return current_front
         
     def peek(self):
         """ Returns the front element without removing it """
-        if(self.size == 0):
+        if self.isEmpty():
             print("queue is empty")
         else:
             return self.queue[self.front]
@@ -61,14 +62,16 @@ class DSACircularQueue(DSAQueue):
 
 
 def main():
-    print("hello world")
     queue = DSACircularQueue(5)
+    print(queue.queue)
     queue.enqueue(1)
     queue.enqueue(2)
     queue.enqueue(3)
+    print(queue.queue)
     print("Front element:", queue.peek())
     print("Queue size:", queue.count())
     queue.dequeue()
+    print(queue.queue)
     print("Front element after dequeue:", queue.peek())
     print("Queue size after dequeue:", queue.count())
 

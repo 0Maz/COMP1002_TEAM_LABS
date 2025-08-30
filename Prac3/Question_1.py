@@ -57,8 +57,10 @@ class DSAStack():       # uses LIFO (Last in First Out)
 
 
 class DSAQueue(DSAStack):       # Uses FIFO (First In First Out)
-    def __init__(self, element):
-        self.element = element
+    def __init__(self, capacity = 100):
+        self.capacity = capacity
+        self.array = np.empty(capacity, dtype=object)
+        self.size = 0
 
     def enqueue(self, element): 
         """Adds Item to the back of the queue. """
@@ -71,6 +73,7 @@ class DSAQueue(DSAStack):       # Uses FIFO (First In First Out)
         else:
             element = self.array[0]
             self.array = self.array[1:]     # returns eveything but the element we took off
+            self.size -= 1
             return element
     
     def peek(self):
@@ -80,8 +83,8 @@ class DSAQueue(DSAStack):       # Uses FIFO (First In First Out)
         return self.array[0]
     
     def isEmpty(self):
-        """Checks if a queue is empty or not"""
-        return self.isEmpty()     
+        "Checks if a queue is empty or not"
+        return self.size == 0  
      # ^ IDK about this one, like is it a good idea to 
      #   define it in this subclass again?
 
@@ -89,22 +92,36 @@ class DSAQueue(DSAStack):       # Uses FIFO (First In First Out)
 def main():
 
     # mostly just me testing in this section: 
-    
-     my_stack = np.array([])
-     stack = DSAStack(10)      # creating an instance of the class
+    print("\n\tSTACK TESTING \n")
+    stack = DSAStack(10)      # creating an instance of the class
 
-     print(stack.count())
-     stack.push(10)
-     stack.push(20)
-     stack.push(30)
+    print(stack.count())
+    stack.push(10)
+    stack.push(20)
+    stack.push(30)
 
-     print(stack.array)
-     print(stack.top())
-     print(stack.count())
-     print(stack.pop())
-     print(stack.array)
-    #return
-    
+    print(stack.array)
+    print(stack.top())
+    print(stack.count())
+    print(stack.pop())
+    print(stack.array)
+
+    print("\n\tQUEUE TESTING \n")
+    my_queue = DSAQueue(5)
+    my_queue.isEmpty()
+    my_queue.enqueue(1)
+    my_queue.enqueue(2)
+    my_queue.enqueue(3)
+    my_queue.isEmpty()
+    print(my_queue.array)
+    print("Front element:", my_queue.peek())
+    print("Queue size:", my_queue.count())
+    my_queue.dequeue()
+    print(my_queue.array)
+    print("Front element after dequeue:", my_queue.peek())
+    print("Queue size after dequeue:", my_queue.count())
+
+
 if __name__ == "__main__":
     main()
 
