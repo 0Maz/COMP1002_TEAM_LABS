@@ -18,6 +18,8 @@ class TwoAdjacentOperatorsError(Exception):
 class BracketNotClosedError(Exception):
     """Rasied if a bracket is not closed inside the Infix equation."""
     
+def lenWithoutSpaces(equation):
+    return len(equation.split(' '))
 
 def precedence(operator):
     """Returns the precedence of operaters with respect to BIMDAS."""
@@ -34,11 +36,10 @@ def noSpaces(equation):
     for i in range(len(equation)):
         if equation[i] in '+-*/' and equation[i+1] in '+-*/':
             return True
-
-
     return False 
 
 def bracketCheck(equation):
+    """Checks the number of brackets in an equation, if the number of open != number of closed, a bracket is missing. """
     open = 0
     close = 0
     for i in range(len(equation)):
@@ -54,9 +55,8 @@ def bracketCheck(equation):
 def parseInfixToPostfix(equation):
 
     infixArray = np.array(equation.split())
-    postfix = []                            # postfix empty array 
-    operators = np.array([])                # holding array for operator stack 
-    operatorStack = DSAStack(operators)     # operator stack
+    postfixStack = DSAStack(100)                             # postfix empty stack 
+    operatorStack = DSAStack(50)                             # operator stack (doesnt matter the length)
 
     if noSpaces(equation):  # e.g. ' *+ ' (where they are directly next to each other)
         raise TwoAdjacentOperatorsError("TwoAdjacentOperatorsError: There are two adjacent operators in the equation. ")
@@ -67,16 +67,15 @@ def parseInfixToPostfix(equation):
     if bracketCheck(equation):
         raise BracketNotClosedError("BracketNotClosedError: At least one set of brackets not closed. ")
     
-
     for term in infixArray:
 
         if term == '(':
             operatorStack.push(term)
             
         elif term == ')':
-            # if a close bracket occurs, pop() everything off until the '( is reached' 
+            # if a close bracket occurs, pop() everything off until the '(' is reached
             while not operatorStack.isEmpty() and operatorStack.top() != '(':
-                postfix.append(operatorStack.pop())
+                postfixStack.push(operatorStack.pop())
 
             if not operatorStack.isEmpty():
                 # since we dont have '(' or ')' in postfix, pop off the orginal '(' as it was just for holding
@@ -85,22 +84,28 @@ def parseInfixToPostfix(equation):
         elif term in '+-*/^':
             while (not operatorStack.isEmpty() and operatorStack.top != '(' 
                    and precedence(operatorStack.top()) >= precedence(term)):
-                postfix.append(operatorStack.pop())
+                postfixStack.push(operatorStack.pop())
             operatorStack.push(term)
 
         else: # every other number and letter
-            postfix.append(term)    
+            postfixStack.push(term)    
 
     while not operatorStack.isEmpty():          
-        postfix.append(operatorStack.pop())    # pops off the remaining terms to postfix 
+        postfixStack.push(operatorStack.pop())    # pops off the remaining terms to postfix 
+
+    # Now convert postifixStack.array to a string, only for non-'None' values
+    postfix = "" 
+    for i in range(postfixStack.count()):
+        if postfixStack.array[i] != None:
+            postfix += str(postfixStack.array[i]) + " "
+    postfix = postfix.strip()
 
     return postfix
 
 def evaluatePostfix(postfix):
     
     postfixArray = np.array(postfix.split())
-    evaluateArray = np.array([])
-    evaluateStack = DSAStack(evaluateArray)
+    evaluateStack = DSAStack(100)
 
     for term in postfixArray:
         if term not in '+-*/^':
@@ -125,12 +130,13 @@ def evaluatePostfix(postfix):
 def main():
 
     # CHANGE THE EQUATION BELOW: 
-    equation = " ( 10.3 * ( 14 + 3.2 ) ) / ( 5 + 2 - 4 * 3 )" 
+    equation = " 5 + ( ( 1 + 2 ) * 4 ) - 3 " 
     
     print(f"The original equation: \t{equation}")
-    postfix = ' '.join(parseInfixToPostfix(equation))   # ' '.join joins the string together
+    postfix = (parseInfixToPostfix(equation)) 
     print(f"The postfix equation: \t {postfix}")
     print(f"The evaluated postfix equation is: \t{evaluatePostfix(postfix)}")
+    print()
     
 if __name__ == "__main__":
     main()
