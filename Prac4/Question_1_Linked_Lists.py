@@ -5,14 +5,15 @@
 #
 # Dependecies. 
 #
-# References: 
+# References: DSA Lecture 4
 
 #Single Linked
-def DSAListNode(value, next):
+def DSAListNode(value, next, prev):
     """List node class, takes in a value and a next object of type DSAListNode"""
-    def __init__(self, value, next):
+    def __init__(self, value, next, prev):
         self.value = value
         self.next = None
+        self.prev = None
 
     def getValue():
         return self.value
@@ -26,35 +27,46 @@ def DSAListNode(value, next):
     def setNext(newNext):
         ##MUST BE DSALISTNODE
         self.next = newNext
+
+    def getPrev():
+        return self.prev 
+    
+    def setPrev(newPrev):
+        self.prev = newPrev
     
         
 #Single Ended Single Linked rn
-def DSALinkedList(head):
+def DSALinkedList(head, tail):
     """ DOCUSTRING """
     def __init__(self, head):
         """Head is data type DSAListNode"""
         self.head = None
+        self.tail = None
     
     def insertFirst(newValue):
         newNd = DSAListNode(newValue)
         if isEmpty():
             self.head = newNd #If empty, the new node will be head
         else:
-            newNd.setNext(head) #the old head moves to 2nd
+            newNd.setNext(self.head) #the old head moves to 2nd
             self.head = newNd #new head
     
     def insertLast(newValue):
         newNd = DSAListNode(newValue)
-        if isEmpty():
+        if isEmpty(): #Head empty? last will be here
             self.head = newNd
-        else:
-            currNd = self.head
-            while currNd.getNext() != None: #find the last node
-                currNd = currNd.getNext()
-            currNd.setNext(newNd) #change the next from None to the new node inserted
+        elif isTailEmpty: #Tail empty? last will be tail
+            self.head.setNet(newNd)
+            self.tail = newNd
+        else: #list has variables?        
+            newNd.setPrev(self.tail) #the old tail moves to second last
+            self.tail = newNd #new head
     
     def isEmpty():
-        return self.head == None
+        return self.head == None #and self.tail == None
+    
+    def isTailEmpty():
+        return self.tail == None
 
     def peekFirst():
         if isEmpty():
@@ -66,10 +78,7 @@ def DSALinkedList(head):
         if isEmpty():
             return
         else:
-            currNd = self.head
-            while currNd.getNext() != None: #find the last node
-                currNd = currNd.getNext()
-            return currNd.getValue()
+            return self.tail.getValue()
         
     def removeFirst():
         if isEmpty():
@@ -87,14 +96,9 @@ def DSALinkedList(head):
             self.head = None
             return nodeValue #'Pop the value
         else:
-            prevNd = None
-            currNd = self.head
-            while currNd.getNext() != None:
-                prevNd = currNd
-                currNd = currNd.getNext()
-            prevNd.setNext(None)
-            return currNd.getValue() #"Pop the value"
-            
+            nodeValue = self.tail.getValue()
+            self.tail = self.tail.getPrev()
+            return nodeValue            
 
 
 
