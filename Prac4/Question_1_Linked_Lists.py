@@ -8,102 +8,110 @@
 # References: DSA Lecture 4
 
 #Single Linked
-def DSAListNode(value, next, prev):
+class DSAListNode():
     """List node class, takes in a value and a next object of type DSAListNode"""
-    def __init__(self, value, next, prev):
+    def __init__(self, value):
         self.value = value
         self.next = None
         self.prev = None
 
-    def getValue():
+    def getValue(self):
         return self.value
     
-    def setValue(inValue):
+    def setValue(self, inValue):
         self.value = inValue
     
-    def getNext():
+    def getNext(self):
         return self.next
     
-    def setNext(newNext):
+    def setNext(self, newNext):
         ##MUST BE DSALISTNODE
         self.next = newNext
 
-    def getPrev():
+    def getPrev(self):
         return self.prev 
     
-    def setPrev(newPrev):
+    def setPrev(self, newPrev):
         self.prev = newPrev
     
         
 #Single Ended Single Linked rn
-def DSALinkedList(head, tail):
+class DSALinkedList():
     """ DOCUSTRING """
-    def __init__(self, head):
+    def __init__(self):
         """Head is data type DSAListNode"""
         self.head = None
         self.tail = None
+
+    def isEmpty(self):
+        return self.head is None #and self.tail == None
     
-    def insertFirst(newValue):
+    def insertFirst(self, newValue):
         newNd = DSAListNode(newValue)
-        if isEmpty():
-            self.head = newNd #If empty, the new node will be head
+        if self.isEmpty():
+            self.head = self.tail = newNd  #If empty, the new node will be head
         else:
             newNd.setNext(self.head) #the old head moves to 2nd
+            self.head.setPrev(newNd) #set prev value
             self.head = newNd #new head
     
-    def insertLast(newValue):
+    def insertLast(self, newValue):
         newNd = DSAListNode(newValue)
-        if isEmpty(): #Head empty? last will be here
-            self.head = newNd
-        elif isTailEmpty: #Tail empty? last will be tail
-            self.head.setNet(newNd)
-            self.tail = newNd
+        if self.isEmpty(): #Head empty? last will be here
+            self.head = self.tail = newNd
         else: #list has variables?        
             newNd.setPrev(self.tail) #the old tail moves to second last
-            self.tail = newNd #new head
-    
-    def isEmpty():
-        return self.head == None #and self.tail == None
-    
-    def isTailEmpty():
-        return self.tail == None
+            self.tail.setNext(newNd)
+            self.tail = newNd #new tail
 
-    def peekFirst():
-        if isEmpty():
-            return
-        else:
-            return self.head.getValue()
+    def peekFirst(self):
+        if self.isEmpty():
+            return None
+        return self.head.getValue()
         
-    def peekLast():
-        if isEmpty():
-            return
-        else:
-            return self.tail.getValue()
+    def peekLast(self):
+        if self.isEmpty():
+            return None
+        return self.tail.getValue()
         
-    def removeFirst():
-        if isEmpty():
-            return
+    def removeFirst(self):
+        if self.isEmpty():
+            return None
+        nodeValue = self.head.getValue() #takes the value of current head
+        if self.head == self.tail: #only one node
+            self.head = self.tail = None
         else:
-            nodeValue = self.head.getValue() #takes the value of current head
             self.head = self.head.getNext()
-            return nodeValue #''Pop'' the value
+            self.head.setPrev(None)
+        return nodeValue #''Pop'' the value
         
-    def removeLast():
-        if isEmpty():
-            return
-        elif self.head.getNext == None: #is there just 1 value
-            nodeValue = self.head.getValue()
-            self.head = None
-            return nodeValue #'Pop the value
+    def removeLast(self):
+        if self.isEmpty():
+            return None
+        nodeValue = self.tail.getValue()
+        if self.head == self.tail: #is there just 1 node
+            self.head = self.tail = None
         else:
-            nodeValue = self.tail.getValue()
             self.tail = self.tail.getPrev()
-            return nodeValue            
+            self.tail.setNext(None)
+        return nodeValue            
 
 
 
 def main():
-    pass
+    test_list = DSALinkedList()
+    print("Inserting at front: 5, 10")
+    test_list.insertFirst(5)
+    test_list.insertFirst(10)
+    print("Inserting at end: 20, 25")
+    test_list.insertLast(20)
+    test_list.insertLast(25)
+    print("Peek first:", test_list.peekFirst())
+    print("Peek last:", test_list.peekLast())
+    print("Remove first:", test_list.removeFirst())
+    print("Remove last:", test_list.removeLast())
+    print("Remove first:", test_list.removeFirst())
+    print("Remove first:", test_list.removeFirst())
 
 if __name__ == "__main__":
     main()
