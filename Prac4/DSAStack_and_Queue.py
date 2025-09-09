@@ -1,24 +1,12 @@
-# QUESTION 2: 
-#   Create DSAStack and DSAQueue using Linked-lists instead of arrays
+# DSAStack_and_Queue
 #
-# NOTES: (From Question 2)
-#   - For DSAQueue, use enqueue(), perform insertLast() in DSALinkedList
-#   - For DSAQueue, use dequeue(), perform peekFirst() and removeFirst()
-#       o We can reverse these operations to still achieve FIFO behaviour
-#   
-#   - For DSAStack, have push() perform insertFirst()
-#   - For DSAStack, for pop(), use a combinations of peekFirst() and removeFirst()
-#       o We use this to access the first element and remove it. 
-#       o We can reverse these operations to acheive LIFO behaviour
+# Synonpsis:  
+#   Copy of Question_1.py from Practical 3, or otherwise known as 
+#   DSAStack and DSAQueue class. 
 #
-#   - Similar simplifications occur for isEmpty() and other methods. 
-#   - The following methods can be removed... 
-#       o isFull()
-#       o count()
-#       o MAX_CAPACITY
-#       o Alternate Constructor etc...      (IDK lol, im too tired for this)
+# Author:   Luke Riedel (22224109)
+# Date:     17/08/2025
 
-# DSAStack and DSAQueue based on code in Practical 3, COMP1002 (Curtin University). 
 
 import numpy as np
 
