@@ -20,57 +20,35 @@
 
 # DSAStack and DSAQueue based on code in Practical 3, COMP1002 (Curtin University). 
 
-import numpy as np
+from Question_1_Linked_Lists import DSALinkedList
 
-class DSAStack():       # uses LIFO (Last in First Out)
+class DSAStack(DSALinkedList):       # uses LIFO (Last in First Out)
 
-    def __init__(self, capacity = 100):
-        self.capacity = capacity
-        self.size = 0
-        self.array = np.empty(capacity, dtype=object) # empty stack
+    def __init__ (self):
+        self.DSALinkedList = DSALinkedList()
     
     def push(self, element):
-        """Add a new item to the top a stack. """
-        if self.size == self.capacity: #if full
-            print("stack is full")
-            return None 
-        self.array[self.size] = element
-        self.size += 1
+        self.DSALinkedList.insertFirst(element)
+
 
     def pop(self):
-        """ Take the top most item from a stack. """
-        if self.isEmpty():
-            return None
-        element = self.array[self.size - 1]
-        self.array[self.size - 1] = None        # grab the last element
-        self.size -= 1
-        return element  
+        return self.DSALinkedList.removeFirst()
+
+        
+    def top(self):
+        return self.DSALinkedList.peekFirst()
+    
+     
+    def isEmpty(self):
+        return self.DSALinkedList.isEmpty()
         
 
-    def top(self):
-        """Look at the top-most item, but leave it on the stack. """
-        if self.isEmpty():
-            return None
-        return self.array[self.size - 1]
-    
-    
-    def isEmpty(self):
-        """Check if an array is empty. """
-        if self.size == 0:
-            return True
-        else: 
-            return False
-        
-    def count(self):
-        """Returns the number of elements in the stack. """
-        return self.size
 
 
 class DSAQueue(DSAStack):       # Uses FIFO (First In First Out)
-    def __init__(self, capacity = 100):
-        self.capacity = capacity
-        self.array = np.empty(capacity, dtype=object)
-        self.size = 0
+    
+    def __init__(self):
+        self.DSALinkedList = DSALinkedList()
 
     def enqueue(self, element): 
         """Adds Item to the back of the queue. """
@@ -78,59 +56,53 @@ class DSAQueue(DSAStack):       # Uses FIFO (First In First Out)
 
     def dequeue(self):
         """Takes of the first element in the queue (delete, remove). """
-        if self.count() == 0:
-            return None
-        else:
-            element = self.array[0]
-            self.array = self.array[1:]     # returns eveything but the element we took off
-            self.size -= 1
-            return element
+        return self.DSALinkedList.removeLast()
     
     def peek(self):
-        """Check the first item, but do not take it off. """
-        if self.isEmpty():
-            return None
-        return self.array[0]
+        return self.DSALinkedList.peekLast()
     
-    def isEmpty(self):
-        "Checks if a queue is empty or not"
-        return self.size == 0  
-     # ^ IDK about this one, like is it a good idea to 
-     #   define it in this subclass again?
 
   
 def main():
 
-    # mostly just me testing in this section: 
-    print("\n\tSTACK TESTING \n")
-    stack = DSAStack(10)      # creating an instance of the class
+    print("TESTING LINKED LIST STACK AND QUEUE")
+    print("\nDSALinkedList - Stack:\n")
+    
+    
+def main():
 
-    print(stack.count())
-    stack.push(10)
-    stack.push(20)
-    stack.push(30)
+    print("TESTING LINKED LIST STACK AND QUEUE")
+    print("\nDSALinkedList - Stack:\n")
 
-    print(stack.array)
-    print(stack.top())
-    print(stack.count())
-    print(stack.pop())
-    print(stack.array)
+    # Test DSAStack
 
-    print("\n\tQUEUE TESTING \n")
-    my_queue = DSAQueue(5)
-    my_queue.isEmpty()
-    my_queue.enqueue(1)
-    my_queue.enqueue(2)
-    my_queue.enqueue(3)
-    my_queue.isEmpty()
-    print(my_queue.array)
-    print("Front element:", my_queue.peek())
-    print("Queue size:", my_queue.count())
-    my_queue.dequeue()
-    print(my_queue.array)
-    print("Front element after dequeue:", my_queue.peek())
-    print("Queue size after dequeue:", my_queue.count())
+    stack = DSAStack()
+    print("Pushing 1, 2, 3 onto stack...")
+    stack.push(1)
+    stack.push(2)
+    stack.push(3)
+    print("Top of stack (should be 3):", stack.top())
+    print("Popping from stack (should be 3):", stack.pop())
+    print("Popping from stack (should be 2):", stack.pop())
+    print("Is stack empty? (should be False):", stack.isEmpty())
+    print("Popping from stack (should be 1):", stack.pop())
+    print("Is stack empty? (should be True):", stack.isEmpty())
 
+    print("\nDSALinkedList - Queue:\n")
+
+    # Test DSAQueue
+
+    queue = DSAQueue()
+    print("Enqueuing 1, 2, 3 into queue...")
+    queue.enqueue(1)
+    queue.enqueue(2)
+    queue.enqueue(3)
+    print("Peeking the last element (Should be 1)", queue.peek())
+    print("Dequeuing from queue (should be 1):", queue.dequeue())
+    print("Dequeuing from queue (should be 2):", queue.dequeue())
+    print("Is queue empty? (should be False):", queue.isEmpty())
+    print("Dequeuing from queue (should be 3):", queue.dequeue())
+    print("Is queue empty? (should be True):", queue.isEmpty())
 
 if __name__ == "__main__":
     main()
