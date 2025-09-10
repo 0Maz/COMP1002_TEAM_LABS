@@ -120,24 +120,40 @@ class DSALinkedList():
             print(self.head)"""
         
 def main():
-    test_list = DSALinkedList()
-    print("Inserting at front: 5, 10")
-    test_list.insertFirst(5)
-    test_list.insertFirst(10)
-    print("Inserting at end: 20, 25")
-    test_list.insertLast(20)
-    test_list.insertLast(25)
-    print("Peek first:", test_list.peekFirst())
-    print("Peek last:", test_list.peekLast())
-    print("\nDISPLAY LIST\n")
-    test_list.displayList()
-    print("Remove first:", test_list.removeFirst())
-    print("Remove last:", test_list.removeLast())
-    print("Remove first:", test_list.removeFirst())
-    print("Remove first:", test_list.removeFirst())
 
-    print("\nDISPLAY LIST\n")
-    test_list.displayList()
+    linkedList = DSALinkedList()
+
+    option = None
+
+    while option != "E":
+        print("\n--------INTERACTIVE LINKED LIST--------\n")
+        print("Pick a function "
+        "\n\t(IF)Insert First\t(IL)InsertLast  \n\t(RF)RemoveFirst"
+        "\t\t(RL)RemoveLast \n\t(PF)PeekFirst\t\t(PL)PeekLast \n\t(D)isplay \n\t(E)scape\n")
+
+        option = input()
+        print()
+
+        if option == "E" : 
+            break 
+        elif option == "IF" : 
+            linkedList.insertFirst(input("Insert First Value: \n"))
+        elif option == "IL" : 
+            linkedList.insertLast(input("Insert Last Value: \n"))
+        elif option == "RF" : 
+            linkedList.removeFirst()
+        elif option == "RL" : 
+            linkedList.removeLast()
+        elif option == "PF" : 
+            print(f"Peeking First: {linkedList.peekFirst()}\n")
+        elif option == "PL" : 
+            print(f"Peeking Last: {linkedList.peekLast()}\n")
+        elif option == "D" : 
+            print(f"List: {linkedList.displayList()}")
+
+        else: 
+            print("ERROR: Please enter one of the given functions")
+
 
 if __name__ == "__main__":
     main()

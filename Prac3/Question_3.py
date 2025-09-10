@@ -130,7 +130,7 @@ def evaluatePostfix(postfix):
 def main():
 
     # CHANGE THE EQUATION BELOW: 
-    equation = " 5 + ( ( 1 + 2 ) * 4 ) - 3 " 
+    equation = " ( 6 + 6 ) * 2 - 6 / ( 2 + 4 )" 
     
     print(f"The original equation: \t{equation}")
     postfix = (parseInfixToPostfix(equation)) 
