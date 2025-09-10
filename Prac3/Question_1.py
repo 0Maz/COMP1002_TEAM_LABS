@@ -96,6 +96,7 @@ def main():
     stack = DSAStack(10)      # creating an instance of the class
 
     print(stack.count())
+    print("Pushing 10, 20 and 30 onto the stack")
     stack.push(10)
     stack.push(20)
     stack.push(30)
@@ -108,7 +109,8 @@ def main():
 
     print("\n\tQUEUE TESTING \n")
     my_queue = DSAQueue(5)
-    my_queue.isEmpty()
+    print(f"Is Empty? {my_queue.isEmpty()}")
+    print("\nEnqueuing 1, 2 and 3...")
     my_queue.enqueue(1)
     my_queue.enqueue(2)
     my_queue.enqueue(3)

@@ -96,8 +96,6 @@ class DSALinkedList():
             self.tail.setNext(None)
         return nodeValue            
 
-
-
 def main():
     test_list = DSALinkedList()
     print("Inserting at front: 5, 10")
