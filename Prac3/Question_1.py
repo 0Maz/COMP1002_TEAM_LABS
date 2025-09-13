@@ -72,7 +72,10 @@ class DSAQueue(DSAStack):       # Uses FIFO (First In First Out)
             return None
         else:
             element = self.array[0]
-            self.array = self.array[1:]     # returns eveything but the element we took off
+            # Shift all elements one position to the left
+            for i in range(1, self.size):
+                self.array[i - 1] = self.array[i]
+            self.array[self.size - 1] = None  # Clear the now-unused slot
             self.size -= 1
             return element
     
