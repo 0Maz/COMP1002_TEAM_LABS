@@ -91,6 +91,17 @@ class DSABinarySearchTree():
         minKey = curNode._key
         return minKey
 
+    def balance(self): 
+        """Returns a percentage along with a left / right bias"""
+        if self._root is None:    # base case, must be balanced
+            return 0 
+        leftHeight = self._heightRec(self._root._left)
+        rightHeight = self._heightRec(self._root._right)
+        
+        balanceValue = leftHeight - rightHeight
+        return balanceValue
+        
+
 
 def main():
     print("Testing node creation")
@@ -128,6 +139,16 @@ def main():
         print(myTree.find(10))
     except ValueError as e:
         print("Error:", e)
+
+    print('\nTesting Balance:')
+    
+    #should be balanced
+    print(myTree.balance())
+
+    myTree.insert(9, 'eight')
+    print(myTree.balance())
+
+    # not done yet 
 
 if __name__ == "__main__":
     main()
