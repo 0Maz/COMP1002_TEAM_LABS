@@ -7,6 +7,8 @@
 #
 # References: DSA Lecture 4
 
+from LLQMethod import DSAQueue
+
 class DSATreeNode():
 
     def __init__(self, inKey, inValue):
@@ -41,29 +43,62 @@ class DSABinarySearchTree():
         self._root = self._insertRec(key, value, self._root)
 
     def _insertRec(self, key, value, cur):
-        updateNode = cur
-        if cur == None:  # Base Case: Found
-            #create a new node
-            return DSATreeNode(key, value)
-        elif key == cur._key:    # Base Case: Key already exists
-            raise ValueError("Key: ", str(key), " Already exists")
-        elif key < cur._key:
-            cur._left = self._insertRec(key, value, cur._left)
-        else:
-            cur._right = self._insertRec(key, value, cur._right)
-        return cur
+        # updateNode = cur                                  you might need to delete this
+        try:
+            if cur == None:  # Base Case: Found
+                #create a new node
+                return DSATreeNode(key, value)
+            elif key == cur._key:    # Base Case: Key already exists
+                raise ValueError
+            elif key < cur._key:
+                cur._left = self._insertRec(key, value, cur._left)
+            else:
+                cur._right = self._insertRec(key, value, cur._right)
+            return cur
+        except ValueError:
+            print(f"ValueError: Key: '{str(key)}' Already exists")
+            return cur
 
     def delete(self, key):
-        pass
+        return self.deleteRec(self._root, key)
+    
+    def deleteRec(self, node, key):
+        
+        if node is None:
+            return None         # The tree is empty
+        if key < node._key:     # Search left
+            node._left = self.deleteRec(node._left, key)
+        elif key > node._key:    # Search right
+            node.right = self.deleteRec(node._right, key)
+        
+        else: # Now pick out of the three cases
+            if node._left is None and node._right is None:
+                return None
+            elif node._left is None:
+                return node._right
+            elif node._right is None:
+                return node._left
+            else:
+                sucessor = self.leftMostNode(node._right)
+                node._key = sucessor._key
+                node._right = self.deleteRec(node._right, sucessor._key) 
+        return node
+                
+    def leftMostNode(self, node):
+    # Find the left most minimum
+        current = node 
+        while current._left is not None:
+            current = current._left  
+        return 
 
     def display(self):
         pass
 
-    #from lecture
     def height(self):
         return self._heightRec(self._root)
     
     def _heightRec(self, curNode):
+        #from lecture
         leftHt, rightHt = 0, 0
         if curNode == None: #Base case - no more along this branch
             htSoFar = -1
@@ -75,7 +110,6 @@ class DSABinarySearchTree():
         else:
             htSoFar = rightHt + 1
         return htSoFar
-
 
     def min(self):
         curNode = self._root
@@ -93,17 +127,81 @@ class DSABinarySearchTree():
 
     def balance(self): 
         """Returns a percentage along with a left / right bias"""
+        
         if self._root is None:    # base case, must be balanced
             return 0 
         leftHeight = self._heightRec(self._root._left)
         rightHeight = self._heightRec(self._root._right)
-        
         balanceValue = leftHeight - rightHeight
-        return balanceValue
+        balancePercent = (100 - 100 * abs(balanceValue) / self.count())
+
+        if balanceValue > 0: 
+            return print(f"Tree is Left-Bias ({balancePercent}% balanced)")
+        elif balanceValue < 0: 
+            return print(f"Tree is Right-Bias ({balancePercent}% balanced)")
+        else: 
+            return print(f"Tree has no bias (100% balanced)")
         
+    def count(self):
+        return self._countRec(self._root)
+    
+    def _countRec(self, root):
+        if root is None:
+            return 0    # base case, empty tree returns coutn of 0
+        else:
+            return self._countRec(root._left) + self._countRec(root._right) + 1
+        
+    def inOrderTraveral(self):
+        """Returns in-order traversal of BST in the form of a linked list"""
+        inOrderQueue = DSAQueue()
+        self._inOrderRec(self._root, inOrderQueue)
 
+        for i in range(self.count()):
+            print(inOrderQueue.dequeue()._key, end = ' ')
+        print()
 
+    def _inOrderRec(self, node, queue):
+        if node is not None:
+            self._inOrderRec(node._left, queue)
+            queue.enqueue(node)
+            self._inOrderRec(node._right, queue)
+
+    def preOrderTraveral(self):
+        """Returns pre-order traversal of BST in the form of a linked list"""
+        preOrderQueue = DSAQueue()
+        self._preOrderRec(self._root, preOrderQueue)
+
+        for i in range(self.count()):
+            print(preOrderQueue.dequeue()._key, end = ' ')
+        print() 
+    
+    def _preOrderRec(self, node, queue):
+        if node is not None:
+            queue.enqueue(node)
+            self._preOrderRec(node._left, queue)
+            self._preOrderRec(node._right, queue) 
+    
+    def postOrderTraveral(self):
+        """Returns pre-order traversal of BST in the form of a linked list"""
+        postOrderQueue = DSAQueue()
+        self._postOrderRec(self._root, postOrderQueue)
+
+        for i in range(self.count()):
+            print(postOrderQueue.dequeue()._key, end = ' ')
+        print() 
+    
+    def _postOrderRec(self, node, queue):
+        if node is not None:
+            self._postOrderRec(node._left, queue)
+            self._postOrderRec(node._right, queue) 
+            queue.enqueue(node)
+
+        
 def main():
+
+    print("\n----------------------------------------")
+    print("\nTESTING OUTPUT:\n")
+
     print("Testing node creation")
     myNode = DSATreeNode(1, "one")
     print(myNode)
@@ -140,15 +238,47 @@ def main():
     except ValueError as e:
         print("Error:", e)
 
-    print('\nTesting Balance:')
+    print('\nTesting Tree Balance:')
     
-    #should be balanced
-    print(myTree.balance())
+    #Test Initial Balance
+    print(myTree.balance(),'\n')    # should be balanced
 
-    myTree.insert(9, 'eight')
-    print(myTree.balance())
+    #  Inserting 9, should increase count by 1 and throw off balance
+    print(f"Insterting 9")           
+    myTree.insert(9, 'temp')
+    print("Testing Tree Balance")
+    myTree.balance()
+    print(f"Count of the tree is: {myTree.count()}\n")
+    
+    # Inserting 0, should increase count by 1, and restore balance
+    print(f"Insterting 0")
+    myTree.insert(0, 'temp')
+    print("Testing Tree Balance Again...")
+    myTree.balance()
+    print(f"Count of the tree is: {myTree.count()}\n")
 
-    # not done yet 
+    # Testing In-OrderTraversal:
+    print("In Order Traversal...")
+    myTree.inOrderTraveral()
+
+    # Testing Pre-OrderTraversal:
+    print("\nPre-Order Traversal...")
+    myTree.preOrderTraveral()
+
+    # Testing Post-Order Traversal
+    print("\nTesting Post-Order Traversal...")
+    myTree.postOrderTraveral()
+
+    # Testing Deletion: 
+    print("\nTesting Deletion of Nodes")
+    myTree.delete(5)
+    print("deleting 5")
+    print("In Order Traversal")
+    myTree.inOrderTraveral()
+    
+
+    print("----------------------------------------\n") # end of testing area
+
 
 if __name__ == "__main__":
     main()
