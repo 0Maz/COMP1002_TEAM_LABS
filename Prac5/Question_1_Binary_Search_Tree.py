@@ -62,7 +62,7 @@ class DSABinarySearchTree():
     def delete(self, key):
         return self.deleteRec(self._root, key)
     
-    def deleteRec(self, node, key):
+    """def deleteRec(self, node, key):
         
         if node is None:
             return None         # The tree is empty
@@ -81,9 +81,48 @@ class DSABinarySearchTree():
             else:
                 sucessor = self.leftMostNode(node._right)
                 node._key = sucessor._key
-                node._right = self.deleteRec(node._right, sucessor._key) 
-        return node
+                node._right = self.deleteRec(node._right, sucessor._key)  
+        return node"""
+
+    def deleteRec(self, key, curNode):
+        updateNode = curNode
+        if curNode is None:
+            return None
+        elif key == curNode._key:
+            updateNode = self.deleteNode(key, curNode)
+        elif key < curNode._key < 0: #FSAF?????
+            curNode._left = self.deleteRec(key, curNode._left)
+        else:
+            curNode._right = self.deleteRec(key, curNode._right)
+
+    def deleteNode(self, key, delNode):
+        updateNode = None
+
+        if delNode.getLeft is None and delNode._right is None: #No children
+            updateNode = None # No children
+        elif delNode._left is not None and delNode._right is None: #1 child left
+            updateNode = delNode._left
+        elif delNode._left is None and delNode._right is not None: #1 child right
+            updateNode = delNode._right 
+        else: #two children
+            updateNode = self.promoteSuccessor(delNode._right)
+            if updateNode != delNode._right:
+                updateNode._right = delNode._right
+            updateNode._left = delNode.left
+        return updateNode
+
+
+    def promoteSuccessor(self, cur):
+        successor = cur 
+        if cur.getLeft is None:
+            successor = cur
+        else:
+            if cur.getLeft is not None:
+                successor = self.promoteSuccessor(cur._left)
+            if successor == cur._left:
+                cur._left = successor._right 
                 
+
     def leftMostNode(self, node):
     # Find the left most minimum
         current = node 
