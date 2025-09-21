@@ -59,81 +59,55 @@ class DSABinarySearchTree():
             print(f"ValueError: Key: '{str(key)}' Already exists")
             return cur
 
-    #def delete(self, key):
-    #    return self.deleteRec(self._root, key)
-    
-    """def deleteRec(self, node, key):
-        
-        if node is None:
-            return None         # The tree is empty
-        if key < node._key:     # Search left
-            node._left = self.deleteRec(node._left, key)
-        elif key > node._key:    # Search right
-            node.right = self.deleteRec(node._right, key)
-        
-        else: # Now pick out of the three cases
-            if node._left is None and node._right is None:
-                return None
-            elif node._left is None:
-                return node._right
-            elif node._right is None:
-                return node._left
-            else:
-                sucessor = self.leftMostNode(node._right)
-                node._key = sucessor._key
-                node._right = self.deleteRec(node._right, sucessor._key)  
-        return node"""
+    def delete(self, key):
+        """Deletes a node in a BST given a key"""
+        self._root = self.deleteRec(key, self._root) 
+        # public wrapper to update the root
+        # returns the new subtree and assigns it upwards 
 
     def deleteRec(self, key, curNode):
-        updateNode = curNode
-        if curNode is None:
-            return None
-        elif key == curNode._key:
-            updateNode = self.deleteNode(key, curNode)
-        elif key < curNode._key < 0: #FSAF?????
-            curNode._left = self.deleteRec(key, curNode._left)
-        else:
-            curNode._right = self.deleteRec(key, curNode._right)
+        """Recursive Algorithm for delete() function. """
+        # idea is to start from the root, then recurse until the currNode == key 
 
-        return updateNode
+        if curNode is None: # tree is empty
+            return None  
+        elif key < curNode._key: 
+            curNode._left = self.deleteRec(key, curNode._left)
+        elif key > curNode._key:
+            curNode._right = self.deleteRec(key, curNode._right)
+        else:
+            curNode = self.deleteNode(curNode)  # else we have found the key
+        return curNode
 
     def deleteNode(self, delNode):
 
-        delNode = DSATreeNode(delNode, " ")
-        updateNode = None
-
         if delNode._left is None and delNode._right is None: #No children
-            updateNode = None # No children
+            return None # No children
         elif delNode._left is not None and delNode._right is None: #1 child left
-            updateNode = delNode._left
+            return delNode._left
         elif delNode._left is None and delNode._right is not None: #1 child right
-            updateNode = delNode._right 
+            return delNode._right 
         else: #two children
-            updateNode = self.promoteSuccessor(delNode._right)
-            if updateNode != delNode._right:
-                updateNode._right = delNode._right
-            updateNode._left = delNode.left
-        return updateNode
-
+            successor = self.promoteSuccessor(delNode._right)  
+            if successor != delNode._right:
+                successor._right = delNode._right    # replaces delNode
+            successor._left = delNode._left
+            return successor
 
     def promoteSuccessor(self, cur):
-        successor = cur 
-        if cur.getLeft is None:
-            successor = cur
-        else:
-            if cur.getLeft is not None:
-                successor = self.promoteSuccessor(cur._left)
-                if successor == cur._left:
-                    cur._left = successor._right 
+        if cur._left is None:
+            return cur
+        successor = self.promoteSuccessor(cur._left)    # finds minimum 
+        if successor == cur._left:
+            cur._left = successor._right 
         return successor
                 
-
     def leftMostNode(self, node):
     # Find the left most minimum
         current = node 
         while current._left is not None:
             current = current._left  
-        return 
+        return current
 
     def display(self):
         pass
@@ -315,9 +289,9 @@ def main():
 
     # Testing Deletion: 
     print("\nTesting Deletion of Nodes")
-    myTree.deleteNode(3)
-    print("deleting 5")
-    print("In Order Traversal")
+    myTree.delete(7)
+    print("deleting 7")
+    print("\nIn Order Traversal")
     myTree.inOrderTraveral()
     
 

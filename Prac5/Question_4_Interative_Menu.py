@@ -30,7 +30,7 @@ def main():
             if ans == "end":
                 pass
             else: 
-                binarySearchTree.delete(ans)
+                binarySearchTree.delete(int(ans))
         elif option == "D" : 
             print("Please pick a number from the following options:")
             print("\n\t1.\tIn-Order Traversal")
