@@ -59,8 +59,8 @@ class DSABinarySearchTree():
             print(f"ValueError: Key: '{str(key)}' Already exists")
             return cur
 
-    def delete(self, key):
-        return self.deleteRec(self._root, key)
+    #def delete(self, key):
+    #    return self.deleteRec(self._root, key)
     
     """def deleteRec(self, node, key):
         
@@ -95,10 +95,14 @@ class DSABinarySearchTree():
         else:
             curNode._right = self.deleteRec(key, curNode._right)
 
-    def deleteNode(self, key, delNode):
+        return updateNode
+
+    def deleteNode(self, delNode):
+
+        delNode = DSATreeNode(delNode, " ")
         updateNode = None
 
-        if delNode.getLeft is None and delNode._right is None: #No children
+        if delNode._left is None and delNode._right is None: #No children
             updateNode = None # No children
         elif delNode._left is not None and delNode._right is None: #1 child left
             updateNode = delNode._left
@@ -119,8 +123,9 @@ class DSABinarySearchTree():
         else:
             if cur.getLeft is not None:
                 successor = self.promoteSuccessor(cur._left)
-            if successor == cur._left:
-                cur._left = successor._right 
+                if successor == cur._left:
+                    cur._left = successor._right 
+        return successor
                 
 
     def leftMostNode(self, node):
@@ -310,7 +315,7 @@ def main():
 
     # Testing Deletion: 
     print("\nTesting Deletion of Nodes")
-    myTree.delete(5)
+    myTree.deleteNode(3)
     print("deleting 5")
     print("In Order Traversal")
     myTree.inOrderTraveral()
