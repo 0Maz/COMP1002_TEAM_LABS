@@ -5,62 +5,114 @@
 # Author: Luke Riedel, Mwansa Nawale
 
 import numpy as np
+from Prac5.LLMethod import DSALinkedList
+from Prac5.LLMethod import DSAListNode
 
 class DSAGraph():
-    
-    def __init__(self, capacity):   # capacity == n 
-        self.size = 0
-        self.capacity = capacity
-        self.matrix = np.zeros((capacity, capacity), dtype = object)
-        self.labels = np.zeros((capacity, 2), dtype = object)
-        
+    """Holds Vertices in linked list
+    Each Vertex has a label, a possible value and a linked list of neighbors"""
+    def __init__(self):
+        self.vertices = DSALinkedList()   
+        pass
         
     def addVertex(self, label, value):
-        if label not in self.labels:
-            self.labels[self.size][0] = label   # inserts label in labels
-            self.labels[self.size][1] = value   # inserts value in values
-            self.size += 1
-            return print(f"\n{self.labels} \nself.size = {self.size}\tself.capacity = {self.capacity}")
-        
-    def addEdge(self, label1, label2):
-        if label1 in self.labels and label2 in self.labels:
-            self.matrix[(label1-1, label2-1)] += 1
-        else: 
-            print("InputError: Edge does not Exist")
-        return print(self.matrix)
+        self.vertices.insertFirst(DSAGraphNode(label, value))
     
-    def hasVertex(self):
+    ##both directions
+    def addEdge(self, label1, label2):
+        """If label1 and label2 exists
+            add connection in edge list"""
+        try:
+            if self.hasNode(label1) and self.hasNode(label2):
+                node1 = self.getNode(label1)
+                node2 = self.getNode(label2)
+
+                node1.setEdge(label2)
+                node2.setEdge(label1)  
+        except ValueError:
+            if self.hasNode(label2) and self.hasNode(label1) is not True:
+                print("Label1 and 2 Does not exist")
+            if self.hasNode(label1) is not True:
+                print("Label1 Does not exist")
+            if self.hasNode(label2) is not True:
+                print("Label2 Does not exist")
+    
+    def hasNode(self, label):
+        self.vertices
         return
     
-    def getVertexCount(self):
-        return 
+    def getNodeCount(self):
+        return count 
     
     def getEdgeCount(self):
-        return
+        return count
     
-    def isAdjacent(self):
-        return
+
+    def getNode(self, label):
+        return vertex
     
-    def getAdjacent(self):
-        return 
+    def getAdjacent(self, label):
+        return vertexList
+    
+    def isAdjacent(self, label1, label2):
+        return bool 
     
     def displayAsList(self):
-        return
-    
+        pass
     def displayAsMatrix(self):
-        return
-            
-
-
-
-
+        pass
+    pass
 
 class DSAGraphNode():
+    def __init__(self, inLabel, inValue):
+        self.label = inLabel
+        self.value = inValue
+        self.adjacentNodes = DSALinkedList() #linked list of adjacent nodes
 
-    def __init__(self):
-        self.nuts = 69
+        self.edges = DSALinkedList() 
 
+        """edges may be sole keepers of connections --> no "links" in vertex"""
+        
+        ###self.visited = DSALinkedList()   FOR TRAVERSAL
 
+        self.weighting = 0 #STUFF LATER
+        pass
+
+    def getLabel(self):
+        return self.label
+    
+    def getValue(self):
+        return self.value
+    
+    def getAdjacent(self):
+        return self.adjacentNodes
+    
+    ####
+    def getAdjacentEdges(self): #####LOOK AT THIS
+        "returns list of edges"
+        return self.edges
+    
+    def setEdge(self, node):
+        """Vertex is type DSAGraphNode"""
+        self.links.insertFirst(node)
+        pass
+
+    ####
+    def setVisited(): ######LATER
+        pass
+
+    def clearVisitied():
+        pass
+
+    def getVisited():
+        pass
+
+    def toString(self): ######## Print out All the adjacent edges
+        
+
+        return string 
+
+    pass
 
 
 def main():
@@ -73,4 +125,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    print()
