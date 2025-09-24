@@ -2,7 +2,7 @@
 # 
 # Implement DSAGraph and DSAGraphNode class using linked lists within each node to store the adjacency list
 #
-# Author: Luke Riedel, Mwansa Nawale
+# Author: Luke Riedel, Mwansa Nawale!!
 
 import numpy as np
 from Prac5.LLMethod import DSALinkedList
