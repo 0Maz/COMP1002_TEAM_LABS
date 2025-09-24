@@ -13,10 +13,12 @@ class DSAGraph():
     Each Vertex has a label, a possible value and a linked list of neighbors"""
     def __init__(self):
         self.vertices = DSALinkedList()   
+        self.count = 0
         pass
         
     def addVertex(self, label, value):
         self.vertices.insertFirst(DSAGraphNode(label, value))
+        self.count += 1
     
     ##both directions
     def addEdge(self, label1, label2):
@@ -37,15 +39,15 @@ class DSAGraph():
             if self.hasNode(label2) is not True:
                 print("Label2 Does not exist")
     
-    def hasNode(self, label):
-        self.vertices
+    def hasNode(self, label): ###LOOK AT THIS
+        self.vertices.findNode()
         return
     
     def getNodeCount(self):
-        return count 
+        return self.count 
     
     def getEdgeCount(self):
-        return count
+        return count #!!!
     
 
     def getNode(self, label):
